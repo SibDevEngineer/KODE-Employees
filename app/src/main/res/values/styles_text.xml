@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Inter" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/inter_medium</item>
+        <item name="android:textColor">@color/black_main</item>
+    </style>
+
+    <style name="Inter.Body">
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="Inter.Body2">
+        <item name="android:textSize">15sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="Inter.Header">
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Inter.Profession">
+        <item name="android:textSize">13sp</item>
+        <item name="lineHeight">16sp</item>
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
+
+    <style name="Inter.Tabs">
+        <item name="android:textSize">15sp</item>
+        <item name="lineHeight">20sp</item>
+        <item name="android:textColor">@color/gray1</item>
+    </style>
+
+    <style name="Inter.Secondary">
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">18sp</item>
+        <item name="android:textColor">@color/gray1</item>
+    </style>
+
+    <style name="Inter.StateHeader">
+        <item name="android:textSize">17sp</item>
+        <item name="lineHeight">22sp</item>
+    </style>
+
+    <style name="Inter.DetailHeader">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">28sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Inter.DetailSecondary">
+        <item name="android:textSize">17sp</item>
+        <item name="lineHeight">22sp</item>
+        <item name="android:textColor">@color/gray1</item>
+    </style>
+
+</resources>
