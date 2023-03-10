@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+    <shape>
+        <gradient
+            android:angle="0"
+            android:startColor="@color/bg_veil_frame_start_gradient"
+            android:endColor="@color/bg_veil_frame_end_gradient"
+            android:type="linear" />
+    </shape>
+</item>
+</selector>

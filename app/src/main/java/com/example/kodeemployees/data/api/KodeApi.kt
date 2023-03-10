@@ -6,6 +6,6 @@ import retrofit2.http.GET
 /** Описание интерфейса реализации запроса к api */
 interface KodeApi {
 
-    @GET
+    @GET("users")
     suspend fun getMockUsers(): ResponseDto
 }

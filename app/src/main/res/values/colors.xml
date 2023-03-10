@@ -7,19 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
 
-
     <color name="white">#FFFFFFFF</color>
-
     <color name="black_main">#050510</color>
-
     <color name="gray_dark">#55555C</color>
-
     <color name="gray1">#97979B</color>
     <color name="gray2">#C3C3C6</color>
     <color name="gray3">#F7F7F8</color>
-
     <color name="purple1">#6534FF</color>
-
     <color name="red1">#F44336</color>
 
+    <color name="bg_veil_frame_start_gradient">#F3F3F6</color>
+    <color name="bg_veil_frame_end_gradient">#FAFAFA</color>
+
+    <color name="shimmer_highlight_0">#ffffff</color>
 </resources>

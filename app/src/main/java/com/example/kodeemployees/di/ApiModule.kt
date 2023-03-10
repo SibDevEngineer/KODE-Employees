@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL = "https://stoplight.io/mocks/kode-education/trainee-test/25143926/users"
+private const val BASE_URL = "https://stoplight.io/mocks/kode-education/trainee-test/25143926/" //users
 
 @Module
 class ApiModule {
