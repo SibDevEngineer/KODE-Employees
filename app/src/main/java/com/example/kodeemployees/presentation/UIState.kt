@@ -10,6 +10,9 @@ sealed class UIState {
     /** состояние в процессе загрузки*/
     object Refreshing : UIState()
 
+    /** состояние с пустым списком пользователей*/
+    object EmptyList : UIState()
+
     /** состояние, когда нужный пользователь не найден*/
     object UserNotFound : UIState()
 

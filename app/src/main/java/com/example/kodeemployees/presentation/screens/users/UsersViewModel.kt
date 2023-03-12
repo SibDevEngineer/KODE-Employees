@@ -38,7 +38,7 @@ class UsersViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             kotlin.runCatching { mainRepository.getMockUsers() }.fold(
                 onSuccess = {
-                    _uiStateFlow.value = UIState.Default
+                    _uiStateFlow.value = if (it.isEmpty()) UIState.EmptyList else UIState.Default
                     _usersStateFlow.value = it
                 },
                 onFailure = {

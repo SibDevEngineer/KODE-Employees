@@ -36,23 +36,21 @@
             android:layout_height="wrap_content">
 
         </com.google.android.material.tabs.TabLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/vSwipeRefreshLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vAppBarLayout">
 
-
         <com.skydoves.androidveil.VeilRecyclerFrameView
             android:id="@+id/vRecyclerUsers"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:veilFrame_baseAlpha="0.6"
             app:veilFrame_highlightAlpha="1.0"
             app:veilFrame_highlightColor="@color/shimmer_highlight_0"
@@ -86,7 +84,7 @@
             android:id="@+id/vErrorTitle"
             style="@style/Inter.StateHeader"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center|top"
             android:text="@string/users_screen_state_error_title" />
@@ -95,7 +93,7 @@
             android:id="@+id/vErrorMsg"
             style="@style/Inter.Body"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="center|top"
             android:text="@string/users_screen_state_error_msg"
@@ -105,24 +103,13 @@
             android:id="@+id/vRefreshTxtBtn"
             style="@style/Inter.Body"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center|top"
             android:text="@string/users_screen_state_btn_retry"
             android:textColor="@color/purple1" />
-
-
     </LinearLayout>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--<androidx.recyclerview.widget.RecyclerView-->
-    <!--android:id="@+id/vRecyclerUsers"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="vertical"-->
-    <!--app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-    <!--tools:listitem="@layout/view_user_item" />-->
