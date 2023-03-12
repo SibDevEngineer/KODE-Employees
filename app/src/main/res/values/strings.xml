@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KODE Employees</string>
+    <string name="users_screen_state_error_title">Какой-то сверхразум все сломал</string>
+    <string name="users_screen_state_error_msg">Постараемся быстро починить</string>
+    <string name="users_screen_state_btn_retry">Попробовать снова</string>
+    <string name="users_screen_state_empty_list_title">В выбранном департаменте нет работников</string>
+    <string name="users_screen_state_empty_list_msg">Загляните пока в другой департамент</string>
+
 </resources>

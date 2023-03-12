@@ -9,6 +9,7 @@ class HeaderInterceptor: Interceptor {
 
         val requestBuilder = chain.request().newBuilder()
             .addHeader("Content-type", "application/json")
+            .addHeader("Prefer", "code=200, dynamic=true") // для получения рандомного списка dynamic=true
 
         val request = requestBuilder.build()
 
