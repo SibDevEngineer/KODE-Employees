@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.kodeemployees.domain.MainRepository
 import com.example.kodeemployees.presentation.UIState
-import com.example.kodeemployees.presentation.screens.users.adapter.User
+import com.example.kodeemployees.presentation.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

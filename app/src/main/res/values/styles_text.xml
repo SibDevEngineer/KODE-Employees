@@ -30,7 +30,7 @@
     <style name="Inter.Tabs">
         <item name="android:textSize">15sp</item>
         <item name="lineHeight">20sp</item>
-        <item name="android:textColor">@color/gray1</item>
+        <item name="android:textColor">@color/black_main</item>
     </style>
 
     <style name="Inter.Secondary">

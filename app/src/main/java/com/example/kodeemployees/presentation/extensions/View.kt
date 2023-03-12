@@ -2,14 +2,12 @@ package com.example.kodeemployees.presentation.extensions
 
 import android.view.View
 
+/** visibility = View.VISIBLE */
 fun View.show() {
     visibility = View.VISIBLE
 }
 
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
+/** visibility = View.GONE */
 fun View.gone() {
     visibility = View.GONE
 }

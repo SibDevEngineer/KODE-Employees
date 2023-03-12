@@ -1,6 +1,6 @@
 package com.example.kodeemployees.domain
 
-import com.example.kodeemployees.presentation.screens.users.adapter.User
+import com.example.kodeemployees.presentation.models.User
 
 interface MainRepository {
 

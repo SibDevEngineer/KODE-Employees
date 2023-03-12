@@ -4,6 +4,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.kodeemployees.R
 import com.example.kodeemployees.databinding.ViewUserItemBinding
+import com.example.kodeemployees.presentation.models.User
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 fun userItemDelegate(onUserClick: (user: User) -> Unit) =
