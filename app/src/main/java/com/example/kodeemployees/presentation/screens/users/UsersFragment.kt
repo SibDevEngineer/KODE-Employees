@@ -82,7 +82,11 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private fun initDepartmentsTabs() {
         with(binding) {
             departmentsList.forEach { department ->
-                vTabLayout.addTab(vTabLayout.newTab().setText(department.departmentType.title))
+                vTabLayout.addTab(
+                    vTabLayout.newTab().setText(
+                        resources.getString(department.departmentType.title)
+                    )
+                )
             }
         }
     }
@@ -94,13 +98,8 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
                 viewModel.onDepartmentSelected(department.departmentType)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
