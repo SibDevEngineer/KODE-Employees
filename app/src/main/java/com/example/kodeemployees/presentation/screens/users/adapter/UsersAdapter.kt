@@ -1,6 +1,7 @@
 package com.example.kodeemployees.presentation.screens.users.adapter
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.kodeemployees.presentation.models.User
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import kotlin.jvm.internal.Intrinsics
 

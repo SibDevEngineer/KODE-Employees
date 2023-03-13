@@ -1,6 +1,6 @@
 package com.example.kodeemployees.data.dto
 
-import com.example.kodeemployees.presentation.screens.users.adapter.User
+import com.example.kodeemployees.presentation.models.User
 
 /** Этот адрес - базовый для генерации случайных аватарок пользователей, чтобы
  * не показывать только заглушку вместо аватарок в списке пользователей.

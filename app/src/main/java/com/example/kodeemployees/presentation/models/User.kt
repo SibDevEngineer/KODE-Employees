@@ -1,8 +1,9 @@
-package com.example.kodeemployees.presentation.screens.users.adapter
+package com.example.kodeemployees.presentation.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+/** Класс, описывающий работника/пользователя */
 @Parcelize
 data class User(
     val id: String,

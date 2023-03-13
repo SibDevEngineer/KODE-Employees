@@ -33,7 +33,10 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/vTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/black_main"
+            app:tabTextAppearance="@style/TabTextAppearance">
 
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -113,3 +116,4 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
