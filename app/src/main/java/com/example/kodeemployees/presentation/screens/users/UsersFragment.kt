@@ -17,9 +17,13 @@ import com.example.kodeemployees.presentation.UIState
 import com.example.kodeemployees.presentation.extensions.dpToPx
 import com.example.kodeemployees.presentation.extensions.gone
 import com.example.kodeemployees.presentation.extensions.show
+import com.example.kodeemployees.presentation.models.Department
+import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
 import com.example.kodeemployees.presentation.screens.users.adapter.UsersAdapter
 import com.example.kodeemployees.presentation.screens.users.adapter.UsersItemDecoration
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -47,6 +51,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         with(binding) {
             initDepartmentsTabs()
             setAdapter()
+            initTabsListener()
 
             viewModel.usersStateFlow.onEach {
                 adapter.items = it
@@ -77,9 +82,25 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private fun initDepartmentsTabs() {
         with(binding) {
             departmentsList.forEach { department ->
-                vTabLayout.addTab(vTabLayout.newTab().setText(department.title))
+                vTabLayout.addTab(
+                    vTabLayout.newTab().setText(
+                        resources.getString(department.departmentType.title)
+                    )
+                )
             }
         }
+    }
+
+    private fun initTabsListener() {
+        binding.vTabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                val department = departmentsList[tab?.position!!]
+                viewModel.onDepartmentSelected(department.departmentType)
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
     }
 
     /** Функция визуализации изменения состояний */
@@ -138,19 +159,19 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         private const val COUNT_VEIL_ITEMS = 10 //кол-во скелетонов в списке по умолчанию
 
         private val departmentsList = listOf(
-            Department(0, DepartmentTypes.ALL.title),
-            Department(1, DepartmentTypes.ANDROID.title),
-            Department(2, DepartmentTypes.IOS.title),
-            Department(3, DepartmentTypes.DESIGN.title),
-            Department(4, DepartmentTypes.MANAGEMENT.title),
-            Department(5, DepartmentTypes.QA.title),
-            Department(6, DepartmentTypes.BACK_OFFICE.title),
-            Department(7, DepartmentTypes.FRONTEND.title),
-            Department(8, DepartmentTypes.HR.title),
-            Department(9, DepartmentTypes.PR.title),
-            Department(10, DepartmentTypes.BACKEND.title),
-            Department(11, DepartmentTypes.SUPPORT.title),
-            Department(12, DepartmentTypes.ANALYTICS.title)
+            Department(0, DepartmentType.ALL),
+            Department(1, DepartmentType.ANDROID),
+            Department(2, DepartmentType.IOS),
+            Department(3, DepartmentType.DESIGN),
+            Department(4, DepartmentType.MANAGEMENT),
+            Department(5, DepartmentType.QA),
+            Department(6, DepartmentType.BACK_OFFICE),
+            Department(7, DepartmentType.FRONTEND),
+            Department(8, DepartmentType.HR),
+            Department(9, DepartmentType.PR),
+            Department(10, DepartmentType.BACKEND),
+            Department(11, DepartmentType.SUPPORT),
+            Department(12, DepartmentType.ANALYTICS)
         )
     }
 

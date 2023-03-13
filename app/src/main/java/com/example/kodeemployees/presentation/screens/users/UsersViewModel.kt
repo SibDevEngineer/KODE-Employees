@@ -4,8 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.kodeemployees.data.models.DataSourceType
+import com.example.kodeemployees.data.models.RequestParams
 import com.example.kodeemployees.domain.MainRepository
 import com.example.kodeemployees.presentation.UIState
+import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,19 +27,30 @@ class UsersViewModel @Inject constructor(
     private val _uiStateFlow = MutableStateFlow<UIState>(UIState.Default)
     val uiStateFlow = _uiStateFlow.asStateFlow()
 
+    private val requestParams = RequestParams()
+
     init {
         _uiStateFlow.value = UIState.Loading
-        getAllUsers()
+        getUsers()
     }
 
     fun refreshUsersList() {
         _uiStateFlow.value = UIState.Refreshing
-        getAllUsers()
+        requestParams.sourceType = DataSourceType.SERVER
+        getUsers()
     }
 
-    private fun getAllUsers() {
+    fun onDepartmentSelected(departmentType: DepartmentType) {
+        with(requestParams) {
+            department = departmentType
+            sourceType = DataSourceType.CACHE
+        }
+        getUsers()
+    }
+
+    private fun getUsers() {
         viewModelScope.launch(Dispatchers.IO) {
-            kotlin.runCatching { mainRepository.getMockUsers() }.fold(
+            kotlin.runCatching { mainRepository.getUsers(requestParams) }.fold(
                 onSuccess = {
                     _uiStateFlow.value = if (it.isEmpty()) UIState.EmptyList else UIState.Default
                     _usersStateFlow.value = it
