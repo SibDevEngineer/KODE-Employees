@@ -12,4 +12,22 @@
         <item name="android:textAppearance">@style/Inter.Tabs</item>
     </style>
 
+    <style name="SearchEditTextStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:textAppearance">@style/Inter.Body2</item>
+        <item name="hintTextColor">@color/gray1</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
 </resources>

@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import com.example.kodeemployees.R
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
-        navController.graph = navGraph
+        appBarConfiguration = AppBarConfiguration(navController.graph)
     }
 }

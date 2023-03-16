@@ -8,7 +8,7 @@ import com.example.kodeemployees.presentation.models.User
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 fun userItemDelegate(onUserClick: (user: User) -> Unit) =
-    adapterDelegateViewBinding<User, User, ViewUserItemBinding>(
+    adapterDelegateViewBinding<UserItemUI.UserUI, UserItemUI, ViewUserItemBinding>(
         { layoutInflater, parent ->
             ViewUserItemBinding.inflate(
                 layoutInflater,
@@ -18,16 +18,17 @@ fun userItemDelegate(onUserClick: (user: User) -> Unit) =
         }
     ) {
         binding.vItemUser.setOnClickListener {
-            onUserClick(item)
+            onUserClick(item.user)
         }
 
         bind {
             with(binding) {
-                vNameUser.text = item.userName
-                vTagUser.text = item.userTag
-                vProfession.text = item.profession
+                vNameUser.text = item.user.userName
+                vTagUser.text = item.user.userTag
+                vProfession.text = item.user.profession
+                if (item.isShowBirthdate) vBirthDate.text = item.birthdateUI
 
-                val imgUrl = item.avatarUrl
+                val imgUrl = item.user.avatarUrl
                 Glide.with(vAvatar)
                     .load(imgUrl)
                     .error(R.drawable.img_mock_photo)
