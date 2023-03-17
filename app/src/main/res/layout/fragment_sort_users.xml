@@ -39,14 +39,14 @@
             android:id="@+id/vSortByAlphabetBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/purple1"
+            android:buttonTint="@color/purple_main"
             android:text="@string/sort_users_screen_by_alphabet" />
 
         <RadioButton
             android:id="@+id/vSortByBirthdateBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/purple1"
+            android:buttonTint="@color/purple_main"
             android:text="@string/sort_users_screen_by_birthdate" />
     </RadioGroup>
 

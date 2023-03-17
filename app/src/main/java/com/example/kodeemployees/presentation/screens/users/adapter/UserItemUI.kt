@@ -16,7 +16,7 @@ sealed class UserItemUI {
     companion object {
         fun User.toUserUI(isShowBirthdate: Boolean): UserUI {
             val date = if (isShowBirthdate) {
-                val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())//d MMM
+                val formatter = SimpleDateFormat("d MMM", Locale.getDefault())
                 this.birthdate?.let { formatter.format(it) }
             } else null
 

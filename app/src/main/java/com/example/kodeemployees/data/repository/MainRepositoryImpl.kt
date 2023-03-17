@@ -11,19 +11,16 @@ import com.example.kodeemployees.presentation.models.User
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(private val kodeApi: KodeApi) : MainRepository {
-
     private var cachedUsersList = listOf<User>()
 
     private suspend fun getMockUsers(): List<User> {
         cachedUsersList = kodeApi.getMockUsers().usersList.map { it.toUser() }
-
         return cachedUsersList
     }
 
     override suspend fun getUsers(requestParams: RequestParams): List<User> {
-        val usersList =
-            if (requestParams.sourceType == DataSourceType.SERVER) getMockUsers()
-            else cachedUsersList.toList()
+        val usersList = if (requestParams.sourceType == DataSourceType.SERVER) getMockUsers()
+        else cachedUsersList.toList()
 
         return usersList
             .filter { it.userName?.contains(requestParams.searchText) == true }
@@ -31,10 +28,10 @@ class MainRepositoryImpl @Inject constructor(private val kodeApi: KodeApi) : Mai
                 if (requestParams.department == DepartmentType.ALL) true
                 else it.department == requestParams.department.name.lowercase()
             }
-            .sortedBy {
+            .let { list ->
                 when (requestParams.sortedBy) {
-                    SortUsersType.ALPHABET -> it.userName
-                    SortUsersType.BIRTHDATE -> it.birthday
+                    SortUsersType.ALPHABET -> list.sortedBy { it.userName }
+                    else -> list.sortedBy { it.nextBirthdate }
                 }
             }
     }

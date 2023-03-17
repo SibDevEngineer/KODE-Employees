@@ -14,5 +14,6 @@ data class User(
     val department: String?,
     val profession: String?,
     val birthdate: Date?,
+    val nextBirthdate:Date?,
     val phone: String?
 ) : Parcelable

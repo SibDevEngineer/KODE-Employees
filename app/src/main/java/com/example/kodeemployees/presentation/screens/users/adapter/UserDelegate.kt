@@ -4,6 +4,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.kodeemployees.R
 import com.example.kodeemployees.databinding.ViewUserItemBinding
+import com.example.kodeemployees.presentation.extensions.gone
+import com.example.kodeemployees.presentation.extensions.show
 import com.example.kodeemployees.presentation.models.User
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
@@ -26,7 +28,11 @@ fun userItemDelegate(onUserClick: (user: User) -> Unit) =
                 vNameUser.text = item.user.userName
                 vTagUser.text = item.user.userTag
                 vProfession.text = item.user.profession
-                if (item.isShowBirthdate) vBirthDate.text = item.birthdateUI
+
+                if (item.isShowBirthdate) {
+                    vBirthDate.show()
+                    vBirthDate.text = item.birthdateUI
+                } else vBirthDate.gone()
 
                 val imgUrl = item.user.avatarUrl
                 Glide.with(vAvatar)
