@@ -12,12 +12,12 @@ import com.example.kodeemployees.presentation.UIState
 import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
 import com.example.kodeemployees.presentation.screens.users.adapter.UserItemUI
-import com.example.kodeemployees.presentation.screens.users.adapter.UserItemUI.Companion.toUserUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
@@ -66,8 +66,6 @@ class UsersViewModel @Inject constructor(
     fun getCurrentSortType(): SortUsersType = requestParams.sortedBy
 
     private fun getUsers() {
-        val isShowBirthdate = requestParams.sortedBy == SortUsersType.BIRTHDATE
-
         viewModelScope.launch(Dispatchers.IO) {
             kotlin.runCatching { mainRepository.getUsers(requestParams) }.fold(
                 onSuccess = { usersList ->
@@ -75,9 +73,7 @@ class UsersViewModel @Inject constructor(
                         _uiStateFlow.value =
                             if (usersList.isEmpty()) UIState.EmptyList else UIState.Default
 
-                        _usersStateFlow.value =
-                            if (isShowBirthdate) mapUsersWithBirthdate(usersList) else
-                                usersList.map { it.toUserUI(false) }
+                        _usersStateFlow.value = mapToUsersUi(usersList)
                     }
                 },
                 onFailure = {
@@ -88,27 +84,40 @@ class UsersViewModel @Inject constructor(
         }
     }
 
-    /** Функция преобразует список пользователей. У пользователя будет отображаться день рождения,
-     * а также в список будет добавлен Header, информирующий о днях рождения в следующем году. */
-    private fun mapUsersWithBirthdate(list: List<User>): List<UserItemUI> {
-        val isShowBirthdate = true
-
+    /** Функция возвращает список пользователей, преобразуя модель из data слоя
+     * в модель для presentation слоя. При сортировке списка по дате в список добавляется header
+     * с инфо о днях рождения в следующем году */
+    private fun mapToUsersUi(list: List<User>): List<UserItemUI> {
+        val isShowBirthdate = requestParams.sortedBy == SortUsersType.BIRTHDATE
         val calNow = Calendar.getInstance()
         val nextYear = calNow.get(Calendar.YEAR) + 1
-        val headerUI = UserItemUI.HeaderUI(nextYear.toString())
-
-        val indexBirthdateNextYear = list.indexOfFirst { user ->
-            val cal = Calendar.getInstance().apply { time = user.nextBirthdate ?: Date() }
-            cal.get(Calendar.YEAR) > calNow.get(Calendar.YEAR)
-        }
 
         val newList = mutableListOf<UserItemUI>()
-        newList.addAll(list.map { it.toUserUI(isShowBirthdate) })
 
-        if (indexBirthdateNextYear > 0) {
-            newList.add(indexBirthdateNextYear, headerUI)
+        newList.addAll(list.map { user ->
+            val formatter = SimpleDateFormat("d MMM", Locale.getDefault())
+            val birthdateUI = user.birthdate?.let { formatter.format(it) }
+
+            UserItemUI.UserUI(
+                user = user,
+                isShowBirthdate = isShowBirthdate,
+                birthdateUI = birthdateUI
+            )
+        })
+
+        //добавляем header в список
+        if (isShowBirthdate) {
+            val headerUI = UserItemUI.HeaderUI(nextYear.toString())
+
+            val indexBirthdateNextYear = list.indexOfFirst { user ->
+                val cal = Calendar.getInstance().apply { time = user.nextBirthdate ?: Date() }
+                cal.get(Calendar.YEAR) > calNow.get(Calendar.YEAR)
+            }
+
+            if (indexBirthdateNextYear >= 0) {
+                newList.add(indexBirthdateNextYear, headerUI)
+            }
         }
-
         return newList.toList()
     }
 

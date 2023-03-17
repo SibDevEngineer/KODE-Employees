@@ -1,8 +1,6 @@
 package com.example.kodeemployees.presentation.screens.users.adapter
 
 import com.example.kodeemployees.presentation.models.User
-import java.text.SimpleDateFormat
-import java.util.*
 
 sealed class UserItemUI {
     data class UserUI(
@@ -12,19 +10,4 @@ sealed class UserItemUI {
     ) : UserItemUI()
 
     data class HeaderUI(val title: String) : UserItemUI()
-
-    companion object {
-        fun User.toUserUI(isShowBirthdate: Boolean): UserUI {
-            val date = if (isShowBirthdate) {
-                val formatter = SimpleDateFormat("d MMM", Locale.getDefault())
-                this.birthdate?.let { formatter.format(it) }
-            } else null
-
-            return UserUI(
-                user = this,
-                isShowBirthdate = isShowBirthdate,
-                birthdateUI = date
-            )
-        }
-    }
 }

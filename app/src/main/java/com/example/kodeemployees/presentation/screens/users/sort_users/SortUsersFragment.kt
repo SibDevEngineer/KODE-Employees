@@ -9,14 +9,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.kodeemployees.R
 import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.databinding.FragmentSortUsersBinding
-import com.example.kodeemployees.presentation.extensions.getParcelableData
+import com.example.kodeemployees.presentation.extensions.getSerializableData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
 class SortUsersFragment : BottomSheetDialogFragment(R.layout.fragment_sort_users) {
     private val binding by viewBinding(FragmentSortUsersBinding::bind)
 
-    private val currentSortingType by getParcelableData<SortUsersType>(CURRENT_SORT_TYPE_KEY)
+    private val currentSortingType by getSerializableData<SortUsersType>(CURRENT_SORT_TYPE_KEY)
 
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
 

@@ -19,7 +19,7 @@ import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.databinding.FragmentUsersBinding
 import com.example.kodeemployees.presentation.UIState
 import com.example.kodeemployees.presentation.extensions.dpToPx
-import com.example.kodeemployees.presentation.extensions.getParcelableData
+import com.example.kodeemployees.presentation.extensions.getSerializableData
 import com.example.kodeemployees.presentation.extensions.gone
 import com.example.kodeemployees.presentation.extensions.show
 import com.example.kodeemployees.presentation.models.Department
@@ -49,6 +49,16 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     override fun onAttach(context: Context) {
         context.appComponent.inject(this)
         super.onAttach(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //создаем слушатель и подписываемся на результат из SortUsersFragment
+        setFragmentResultListener(REQUEST_SORT_KEY) { _, bundle ->
+            val selectedSortingType = bundle.getSerializableData<SortUsersType>(SORT_TYPE_KEY)
+            selectedSortingType?.let { viewModel.changeSortingType(it) }
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,15 +173,8 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     }
 
     private fun onSortUsersBtnClick() {
-        var currentSortingType = viewModel.getCurrentSortType()
+        val currentSortingType = viewModel.getCurrentSortType()
 
-        //создаем слушатель и подписываемся на результат из SortUsersFragment
-        setFragmentResultListener(REQUEST_SORT_KEY) { _, bundle ->
-            val selectedSortingType = bundle.getParcelableData<SortUsersType>(SORT_TYPE_KEY)
-
-            currentSortingType = selectedSortingType ?: currentSortingType
-            viewModel.changeSortingType(currentSortingType)
-        }
         //передаем текущее значение типа сортировки для корректного отображения в списке выбора
         val bundle = bundleOf(CURRENT_SORT_TYPE_KEY to currentSortingType)
         findNavController().navigate(R.id.action_usersFragment_to_sortUsersFragment, bundle)
@@ -200,5 +203,4 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             Department(12, DepartmentType.ANALYTICS)
         )
     }
-
 }

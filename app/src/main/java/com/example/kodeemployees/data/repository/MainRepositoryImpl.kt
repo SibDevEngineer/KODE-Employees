@@ -31,7 +31,7 @@ class MainRepositoryImpl @Inject constructor(private val kodeApi: KodeApi) : Mai
             .let { list ->
                 when (requestParams.sortedBy) {
                     SortUsersType.ALPHABET -> list.sortedBy { it.userName }
-                    else -> list.sortedBy { it.nextBirthdate }
+                    SortUsersType.BIRTHDATE -> list.sortedBy { it.nextBirthdate }
                 }
             }
     }
