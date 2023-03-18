@@ -4,17 +4,22 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.kodeemployees.R
 import com.example.kodeemployees.app.appComponent
+import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.databinding.FragmentUsersBinding
 import com.example.kodeemployees.presentation.UIState
 import com.example.kodeemployees.presentation.extensions.dpToPx
+import com.example.kodeemployees.presentation.extensions.getSerializableData
 import com.example.kodeemployees.presentation.extensions.gone
 import com.example.kodeemployees.presentation.extensions.show
 import com.example.kodeemployees.presentation.models.Department
@@ -46,6 +51,16 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         super.onAttach(context)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //создаем слушатель и подписываемся на результат из SortUsersFragment
+        setFragmentResultListener(REQUEST_SORT_KEY) { _, bundle ->
+            val selectedSortingType = bundle.getSerializableData<SortUsersType>(SORT_TYPE_KEY)
+            selectedSortingType?.let { viewModel.changeSortingType(it) }
+        }
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
@@ -63,7 +78,9 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
             vSwipeRefreshLayout.setOnRefreshListener { viewModel.refreshUsersList() }
 
+            vSortUsersBtn.setOnClickListener { onSortUsersBtnClick() }
             vRefreshTxtBtn.setOnClickListener { viewModel.refreshUsersList() }
+
         }
     }
 
@@ -155,7 +172,19 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         Toast.makeText(requireContext(), "${user.userName}", Toast.LENGTH_SHORT).show()
     }
 
+    private fun onSortUsersBtnClick() {
+        val currentSortingType = viewModel.getCurrentSortType()
+
+        //передаем текущее значение типа сортировки для корректного отображения в списке выбора
+        val bundle = bundleOf(CURRENT_SORT_TYPE_KEY to currentSortingType)
+        findNavController().navigate(R.id.action_usersFragment_to_sortUsersFragment, bundle)
+    }
+
     companion object {
+        private const val REQUEST_SORT_KEY = "REQUEST_SORT_KEY"
+        private const val SORT_TYPE_KEY = "SORT_TYPE_KEY"
+        private const val CURRENT_SORT_TYPE_KEY = "CURRENT_SORT_TYPE_KEY"
+
         private const val COUNT_VEIL_ITEMS = 10 //кол-во скелетонов в списке по умолчанию
 
         private val departmentsList = listOf(
@@ -174,5 +203,4 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             Department(12, DepartmentType.ANALYTICS)
         )
     }
-
 }

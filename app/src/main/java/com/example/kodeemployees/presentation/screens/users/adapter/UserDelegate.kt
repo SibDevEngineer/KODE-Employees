@@ -4,11 +4,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.kodeemployees.R
 import com.example.kodeemployees.databinding.ViewUserItemBinding
+import com.example.kodeemployees.presentation.extensions.gone
+import com.example.kodeemployees.presentation.extensions.show
 import com.example.kodeemployees.presentation.models.User
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 fun userItemDelegate(onUserClick: (user: User) -> Unit) =
-    adapterDelegateViewBinding<User, User, ViewUserItemBinding>(
+    adapterDelegateViewBinding<UserItemUI.UserUI, UserItemUI, ViewUserItemBinding>(
         { layoutInflater, parent ->
             ViewUserItemBinding.inflate(
                 layoutInflater,
@@ -18,16 +20,21 @@ fun userItemDelegate(onUserClick: (user: User) -> Unit) =
         }
     ) {
         binding.vItemUser.setOnClickListener {
-            onUserClick(item)
+            onUserClick(item.user)
         }
 
         bind {
             with(binding) {
-                vNameUser.text = item.userName
-                vTagUser.text = item.userTag
-                vProfession.text = item.profession
+                vNameUser.text = item.user.userName
+                vTagUser.text = item.user.userTag
+                vProfession.text = item.user.profession
 
-                val imgUrl = item.avatarUrl
+                if (item.isShowBirthdate) {
+                    vBirthDate.show()
+                    vBirthDate.text = item.birthdateUI
+                } else vBirthDate.gone()
+
+                val imgUrl = item.user.avatarUrl
                 Glide.with(vAvatar)
                     .load(imgUrl)
                     .error(R.drawable.img_mock_photo)

@@ -20,5 +20,8 @@
     <string name="department_title_backend">Backend</string>
     <string name="department_title_support">Техподдержка</string>
     <string name="department_title_analytics">Аналитика</string>
+    <string name="sort_users_screen_title">Сортировка</string>
+    <string name="sort_users_screen_by_alphabet">По алфавиту</string>
+    <string name="sort_users_screen_by_birthdate">По дню рождения</string>
 
 </resources>

@@ -12,9 +12,11 @@
     <color name="gray_dark">#55555C</color>
     <color name="gray1">#97979B</color>
     <color name="gray2">#C3C3C6</color>
-    <color name="gray3">#F7F7F8</color>
-    <color name="purple1">#6534FF</color>
+    <color name="gray_light">#F7F7F8</color>
+    <color name="purple_main">#6534FF</color>
     <color name="red1">#F44336</color>
+
+    <color name="transparent">#00000000</color>
 
     <color name="bg_veil_frame_start_gradient">#F3F3F6</color>
     <color name="bg_veil_frame_end_gradient">#FAFAFA</color>

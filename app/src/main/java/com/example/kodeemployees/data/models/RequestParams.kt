@@ -6,5 +6,5 @@ data class RequestParams(
     var department: DepartmentType = DepartmentType.ALL,
     var searchText: String = "",
     var sourceType: DataSourceType = DataSourceType.SERVER,
-    val sortedBy: SortUsersType = SortUsersType.ALPHABET
+    var sortedBy: SortUsersType = SortUsersType.ALPHABET
 )

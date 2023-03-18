@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="8dp"
+    android:background="@drawable/bg_bottom_sheet_fragment"
+    android:orientation="vertical"
+    tools:context=".presentation.screens.users.sort_users.SortUsersFragment">
+
+    <View
+        android:id="@+id/vView"
+        android:layout_width="56dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_circle"
+        android:backgroundTint="@color/gray2" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vTitleSort"
+        style="@style/Inter.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="@string/sort_users_screen_title"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/vSortBtnGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/vSortByAlphabetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple_main"
+            android:text="@string/sort_users_screen_by_alphabet" />
+
+        <RadioButton
+            android:id="@+id/vSortByBirthdateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/purple_main"
+            android:text="@string/sort_users_screen_by_birthdate" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/vViewBottom"
+        android:layout_width="134dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/bg_circle"
+        android:backgroundTint="@color/gray2" />
+
+</LinearLayout>
