@@ -2,7 +2,6 @@ package com.example.kodeemployees.presentation.screens.users
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -86,10 +85,8 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
             vSearchEditText.textChangesWithDebounce(DEBOUNCE_MILLIS)
                 .onEach {
-                    if (it?.length!! > 2) {
-                        Log.d("vSearchEditText", "$it")
-                    }
-                }.launchIn(lifecycleScope)
+                    onSearchTextChanged(it.toString())
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
 
             vSearchEditText.setOnFocusChangeListener { _, isFocused ->
                 vCancelTxtBtn.showIf { isFocused }
@@ -149,6 +146,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             when (state) {
                 is UIState.Error -> showStateError()
                 is UIState.EmptyList -> showStateEmptyList()
+                is UIState.UserNotFound -> showStateUserNotFound()
                 else -> {
                     vErrorLayout.gone()
                     vRecyclerUsers.show()
@@ -177,12 +175,31 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         with(binding) {
             vErrorLayout.show()
             vRecyclerUsers.gone()
-
             vErrorImg.gone()
+            vRefreshTxtBtn.gone()
+
             vErrorTitle.text = getString(R.string.users_screen_state_empty_list_title)
             vErrorMsg.text = getString(R.string.users_screen_state_empty_list_msg)
-            vRefreshTxtBtn.gone()
         }
+    }
+    private fun showStateUserNotFound() {
+        with(binding) {
+            vErrorLayout.show()
+            vRecyclerUsers.gone()
+            vErrorImg.show()
+            vRefreshTxtBtn.gone()
+
+            vErrorTitle.text = getString(R.string.users_screen_state_user_not_found_title)
+            vErrorMsg.text = getString(R.string.users_screen_state_user_not_found_msg)
+
+            Glide.with(vErrorImg)
+                .load(R.drawable.img_search_empty)
+                .into(vErrorImg)
+        }
+    }
+
+    private fun onSearchTextChanged(title: String) {
+        viewModel.findUser(title.trim())
     }
 
     /** Обработка нажатия на пользователя в списке */

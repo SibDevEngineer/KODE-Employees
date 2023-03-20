@@ -62,6 +62,31 @@ class UsersViewModel @Inject constructor(
         getUsers()
     }
 
+    fun findUser(title: String) {
+        with(requestParams) {
+            if (searchText != title) {
+                searchText = title
+                sourceType = DataSourceType.CACHE
+
+                viewModelScope.launch() {
+                    kotlin.runCatching { mainRepository.getUsers(requestParams) }.fold(
+                        onSuccess = { usersList ->
+                            _uiStateFlow.value =
+                                if (usersList.isEmpty()) UIState.UserNotFound else UIState.Default
+
+                            _usersStateFlow.value = mapToUsersUi(usersList)
+                        },
+                        onFailure = {
+                            _uiStateFlow.value = UIState.Error(it.message)
+                            Log.d("UsersViewModel", "${it.message}")
+                        }
+                    )
+                }
+            }
+
+        }
+    }
+
     /** Возвращает текущий вид сортировки пользователей */
     fun getCurrentSortType(): SortUsersType = requestParams.sortedBy
 
