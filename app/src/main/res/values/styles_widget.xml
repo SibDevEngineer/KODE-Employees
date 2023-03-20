@@ -14,7 +14,7 @@
 
     <style name="SearchEditTextStyle" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:textAppearance">@style/Inter.Body2</item>
-        <item name="hintTextColor">@color/gray1</item>
+        <item name="android:textColorHint">@color/gray2</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:paddingStart">0dp</item>

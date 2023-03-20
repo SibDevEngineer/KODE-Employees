@@ -23,7 +23,11 @@ class MainRepositoryImpl @Inject constructor(private val kodeApi: KodeApi) : Mai
         else cachedUsersList.toList()
 
         return usersList
-            .filter { it.userName?.contains(requestParams.searchText) == true }
+            .filter {
+                it.userName?.contains(requestParams.searchText) == true
+                        || it.userTag?.contains(requestParams.searchText) == true
+                        || it.phone?.contains(requestParams.searchText) == true
+            }
             .filter {
                 if (requestParams.department == DepartmentType.ALL) true
                 else it.department == requestParams.department.name.lowercase()

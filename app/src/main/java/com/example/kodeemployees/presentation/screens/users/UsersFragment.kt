@@ -2,6 +2,7 @@ package com.example.kodeemployees.presentation.screens.users
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
@@ -18,10 +19,7 @@ import com.example.kodeemployees.app.appComponent
 import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.databinding.FragmentUsersBinding
 import com.example.kodeemployees.presentation.UIState
-import com.example.kodeemployees.presentation.extensions.dpToPx
-import com.example.kodeemployees.presentation.extensions.getSerializableData
-import com.example.kodeemployees.presentation.extensions.gone
-import com.example.kodeemployees.presentation.extensions.show
+import com.example.kodeemployees.presentation.extensions.*
 import com.example.kodeemployees.presentation.models.Department
 import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
@@ -80,7 +78,27 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
             vSortUsersBtn.setOnClickListener { onSortUsersBtnClick() }
             vRefreshTxtBtn.setOnClickListener { viewModel.refreshUsersList() }
+            vClearTxtBtn.setOnClickListener { vSearchEditText.text?.clear() }
+            vCancelTxtBtn.setOnClickListener {
+                vSearchEditText.text?.clear()
+                vSearchEditText.clearFocus()
+            }
 
+            vSearchEditText.textChangesWithDebounce(DEBOUNCE_MILLIS)
+                .onEach {
+                    if (it?.length!! > 2) {
+                        Log.d("vSearchEditText", "$it")
+                    }
+                }.launchIn(lifecycleScope)
+
+            vSearchEditText.setOnFocusChangeListener { _, isFocused ->
+                vCancelTxtBtn.showIf { isFocused }
+                vClearTxtBtn.showIf { isFocused }
+                vSortUsersBtn.showIf { !isFocused }
+
+                if (isFocused) vSearchImg.setTint(R.color.black)
+                else vSearchImg.setTint(R.color.gray2)
+            }
         }
     }
 
@@ -185,6 +203,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         private const val SORT_TYPE_KEY = "SORT_TYPE_KEY"
         private const val CURRENT_SORT_TYPE_KEY = "CURRENT_SORT_TYPE_KEY"
 
+        private const val DEBOUNCE_MILLIS = 300L
         private const val COUNT_VEIL_ITEMS = 10 //кол-во скелетонов в списке по умолчанию
 
         private val departmentsList = listOf(
