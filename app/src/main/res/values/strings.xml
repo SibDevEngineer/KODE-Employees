@@ -6,6 +6,8 @@
     <string name="users_screen_state_btn_retry">Попробовать снова</string>
     <string name="users_screen_state_empty_list_title">В выбранном департаменте нет работников</string>
     <string name="users_screen_state_empty_list_msg">Загляните пока в другой департамент</string>
+    <string name="users_screen_state_user_not_found_title">Мы никого не нашли</string>
+    <string name="users_screen_state_user_not_found_msg">Попробуй скорректировать запрос</string>
 
     <string name="department_title_all">Все</string>
     <string name="department_title_android">Android</string>
@@ -23,5 +25,7 @@
     <string name="sort_users_screen_title">Сортировка</string>
     <string name="sort_users_screen_by_alphabet">По алфавиту</string>
     <string name="sort_users_screen_by_birthdate">По дню рождения</string>
+    <string name="users_screen_edit_text_hint">Введи имя, тег, номер телефона…</string>
+    <string name="users_screen_cancel_btn">Отмена</string>
 
 </resources>

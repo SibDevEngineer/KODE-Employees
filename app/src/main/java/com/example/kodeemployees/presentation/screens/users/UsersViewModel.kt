@@ -62,6 +62,17 @@ class UsersViewModel @Inject constructor(
         getUsers()
     }
 
+    fun onSearchTextChanged(text: String) {
+        if (text == requestParams.searchText) return
+
+        with(requestParams) {
+            searchText = text
+            sourceType = DataSourceType.CACHE
+        }
+        getUsers()
+    }
+
+
     /** Возвращает текущий вид сортировки пользователей */
     fun getCurrentSortType(): SortUsersType = requestParams.sortedBy
 
@@ -71,7 +82,7 @@ class UsersViewModel @Inject constructor(
                 onSuccess = { usersList ->
                     withContext(Dispatchers.Main) {
                         _uiStateFlow.value =
-                            if (usersList.isEmpty()) UIState.EmptyList else UIState.Default
+                            if (usersList.isEmpty()) getUIStateEmpty() else UIState.Default
 
                         _usersStateFlow.value = mapToUsersUi(usersList)
                     }
@@ -82,6 +93,11 @@ class UsersViewModel @Inject constructor(
                 }
             )
         }
+    }
+
+    private fun getUIStateEmpty(): UIState {
+        return if (requestParams.searchText.isEmpty()) UIState.EmptyList
+        else UIState.UserNotFound
     }
 
     /** Функция возвращает список пользователей, преобразуя модель из data слоя
