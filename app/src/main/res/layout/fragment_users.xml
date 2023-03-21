@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:hint="@string/users_screen_edit_text_hint"
-                android:lines="1"
+                android:inputType="textFilter"
                 app:layout_constraintBottom_toBottomOf="@id/vLayoutBackground"
                 app:layout_constraintEnd_toStartOf="@id/vClearTxtBtn"
                 app:layout_constraintStart_toEndOf="@+id/vSearchImg"

@@ -84,17 +84,14 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             }
 
             vSearchEditText.textChangesWithDebounce(DEBOUNCE_MILLIS)
-                .onEach {
-                    onSearchTextChanged(it.toString())
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
+                .onEach { viewModel.onSearchTextChanged(it.toString().trim()) }
+                .launchIn(viewLifecycleOwner.lifecycleScope)
 
             vSearchEditText.setOnFocusChangeListener { _, isFocused ->
-                vCancelTxtBtn.showIf { isFocused }
-                vClearTxtBtn.showIf { isFocused }
-                vSortUsersBtn.showIf { !isFocused }
-
-                if (isFocused) vSearchImg.setTint(R.color.black)
-                else vSearchImg.setTint(R.color.gray2)
+                vCancelTxtBtn.showIf(isFocused)
+                vClearTxtBtn.showIf(isFocused)
+                vSortUsersBtn.showIf(!isFocused)
+                vSearchImg.setTint(if (isFocused) R.color.black else R.color.gray2)
             }
         }
     }
@@ -182,6 +179,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             vErrorMsg.text = getString(R.string.users_screen_state_empty_list_msg)
         }
     }
+
     private fun showStateUserNotFound() {
         with(binding) {
             vErrorLayout.show()
@@ -196,10 +194,6 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
                 .load(R.drawable.img_search_empty)
                 .into(vErrorImg)
         }
-    }
-
-    private fun onSearchTextChanged(title: String) {
-        viewModel.findUser(title.trim())
     }
 
     /** Обработка нажатия на пользователя в списке */

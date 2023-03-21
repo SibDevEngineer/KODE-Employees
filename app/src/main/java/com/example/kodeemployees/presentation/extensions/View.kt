@@ -28,12 +28,8 @@ fun View.gone() {
 }
 
 /** Управление видимостью View по определенному условию */
-inline fun View.showIf(condition: View.() -> Boolean) {
-    if (condition()) {
-        show()
-    } else {
-        gone()
-    }
+fun View.showIf(condition: Boolean) {
+    if (condition) show() else gone()
 }
 
 /** Задание оттенка компоненту View*/

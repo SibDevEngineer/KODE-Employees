@@ -62,30 +62,16 @@ class UsersViewModel @Inject constructor(
         getUsers()
     }
 
-    fun findUser(title: String) {
+    fun onSearchTextChanged(text: String) {
+        if (text == requestParams.searchText) return
+
         with(requestParams) {
-            if (searchText != title) {
-                searchText = title
-                sourceType = DataSourceType.CACHE
-
-                viewModelScope.launch() {
-                    kotlin.runCatching { mainRepository.getUsers(requestParams) }.fold(
-                        onSuccess = { usersList ->
-                            _uiStateFlow.value =
-                                if (usersList.isEmpty()) UIState.UserNotFound else UIState.Default
-
-                            _usersStateFlow.value = mapToUsersUi(usersList)
-                        },
-                        onFailure = {
-                            _uiStateFlow.value = UIState.Error(it.message)
-                            Log.d("UsersViewModel", "${it.message}")
-                        }
-                    )
-                }
-            }
-
+            searchText = text
+            sourceType = DataSourceType.CACHE
         }
+        getUsers()
     }
+
 
     /** Возвращает текущий вид сортировки пользователей */
     fun getCurrentSortType(): SortUsersType = requestParams.sortedBy
@@ -96,7 +82,7 @@ class UsersViewModel @Inject constructor(
                 onSuccess = { usersList ->
                     withContext(Dispatchers.Main) {
                         _uiStateFlow.value =
-                            if (usersList.isEmpty()) UIState.EmptyList else UIState.Default
+                            if (usersList.isEmpty()) getUIStateEmpty() else UIState.Default
 
                         _usersStateFlow.value = mapToUsersUi(usersList)
                     }
@@ -107,6 +93,11 @@ class UsersViewModel @Inject constructor(
                 }
             )
         }
+    }
+
+    private fun getUIStateEmpty(): UIState {
+        return if (requestParams.searchText.isEmpty()) UIState.EmptyList
+        else UIState.UserNotFound
     }
 
     /** Функция возвращает список пользователей, преобразуя модель из data слоя
