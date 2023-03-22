@@ -14,7 +14,11 @@
             app:destination="@id/sortUsersFragment" />
         <action
             android:id="@+id/action_usersFragment_to_userDetailFragment"
-            app:destination="@id/userDetailFragment" />
+            app:destination="@id/userDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <dialog
         android:id="@+id/sortUsersFragment"
