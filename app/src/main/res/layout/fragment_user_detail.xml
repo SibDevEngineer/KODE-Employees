@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.screens.detail.UserDetailFragment">
+
+    <View
+        android:id="@+id/vBackgroundView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/gray_light"
+        app:layout_constraintBottom_toBottomOf="@id/vProfession"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/vToolbar"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_caret_left" />
+
+    <ImageView
+        android:id="@+id/vAvatar"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vToolbar"
+        tools:ignore="ContentDescription"
+        tools:src="@tools:sample/avatars" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vNameUser"
+        style="@style/Inter.DetailHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="end"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@id/vTagUser"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vAvatar"
+        tools:text="@tools:sample/full_names" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vTagUser"
+        style="@style/Inter.DetailSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@+id/vNameUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vNameUser"
+        app:layout_constraintTop_toTopOf="@+id/vNameUser"
+        tools:text="@tools:sample/lorem" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vProfession"
+        style="@style/Inter.Profession"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:paddingBottom="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vNameUser"
+        tools:text="@tools:sample/lorem" />
+
+    <ImageView
+        android:id="@+id/vFavoriteImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_favorite"
+        app:layout_constraintEnd_toStartOf="@+id/vBirthdate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vProfession"
+        tools:ignore="ContentDescription" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vBirthdate"
+        style="@style/Inter.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/vFavoriteImg"
+        app:layout_constraintEnd_toStartOf="@id/vAge"
+        app:layout_constraintStart_toEndOf="@id/vFavoriteImg"
+        app:layout_constraintTop_toTopOf="@id/vFavoriteImg"
+        tools:text="5 июня 1996" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/vAge"
+        style="@style/Inter.Body"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:gravity="end"
+        android:textColor="@color/gray1"
+        app:layout_constraintBottom_toBottomOf="@id/vFavoriteImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/vBirthdate"
+        app:layout_constraintTop_toTopOf="@id/vFavoriteImg"
+        tools:text="24 года" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/vPhoneBtn"
+        style="@style/MaterialButtonTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/ic_phone_btn"
+        android:gravity="start|center_vertical"
+        android:padding="0dp"
+        android:text="@tools:sample/us_phones"
+        android:textAppearance="@style/Inter.Body"
+        android:textColor="@color/black"
+        app:iconGravity="end"
+        app:iconPadding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vFavoriteImg"
+        app:rippleColor="?attr/colorButtonNormal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

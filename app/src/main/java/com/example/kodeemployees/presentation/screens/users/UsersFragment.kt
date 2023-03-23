@@ -3,7 +3,6 @@ package com.example.kodeemployees.presentation.screens.users
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -198,7 +197,8 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
     /** Обработка нажатия на пользователя в списке */
     private fun onUserClick(user: User) {
-        Toast.makeText(requireContext(), "${user.userName}", Toast.LENGTH_SHORT).show()
+        val bundle = bundleOf(USER_KEY to user)
+        findNavController().navigate(R.id.action_usersFragment_to_userDetailFragment, bundle)
     }
 
     private fun onSortUsersBtnClick() {
@@ -213,6 +213,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         private const val REQUEST_SORT_KEY = "REQUEST_SORT_KEY"
         private const val SORT_TYPE_KEY = "SORT_TYPE_KEY"
         private const val CURRENT_SORT_TYPE_KEY = "CURRENT_SORT_TYPE_KEY"
+        private const val USER_KEY = "USER_KEY"
 
         private const val DEBOUNCE_MILLIS = 300L
         private const val COUNT_VEIL_ITEMS = 10 //кол-во скелетонов в списке по умолчанию

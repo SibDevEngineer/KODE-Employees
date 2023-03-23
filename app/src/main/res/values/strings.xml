@@ -28,4 +28,7 @@
     <string name="users_screen_edit_text_hint">Введи имя, тег, номер телефона…</string>
     <string name="users_screen_cancel_btn">Отмена</string>
 
+    <string name="user_detail_screen_empty_phone">Нет номера телефона</string>
+    <string name="user_detail_screen_empty_profession">Нет данных о профессии</string>
+
 </resources>

@@ -1,6 +1,6 @@
 package com.example.kodeemployees.data.dto
 
-import com.example.kodeemployees.presentation.extensions.toDate
+import com.example.kodeemployees.data.extensions.toDate
 import com.example.kodeemployees.presentation.models.User
 import java.util.*
 
