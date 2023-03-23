@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "id": "a263e9b6-36ae-46c2-99b4-d22391b07e06",
+      "avatarUrl": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/842.jpg",
+      "firstName": "Jaime",
+      "lastName": "Hirthe",
+      "userTag": "SD",
+      "department": "hr",
+      "position": "Administrator",
+      "birthday": "2006-05-16",
+      "phone": "777-331-3985"
+    },
+    {
+      "id": "80726a90-4052-4123-a672-4e362802ff69",
+      "avatarUrl": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/950.jpg",
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "userTag": "HS",
+      "department": "android",
+      "position": "Developer",
+      "birthday": "1999-10-16",
+      "phone": "533-368-5052"
+    },
+    {
+      "id": "f5cb8a9a-00bc-474a-a7b7-da3afc4d9396",
+      "avatarUrl": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/590.jpg",
+      "firstName": "Darien",
+      "lastName": "Steuber",
+      "userTag": "BT",
+      "department": "frontend",
+      "position": "Executive",
+      "birthday": "1976-08-03",
+      "phone": "654-456-9063"
+    }
+  ]
+}
