@@ -11,6 +11,7 @@ class UsersAdapter(onUserClick: (User) -> Unit) :
         delegatesManager
             .addDelegate(userItemDelegate(onUserClick))
             .addDelegate(headerDelegate())
+            .addDelegate(skeletonDelegate())
     }
 
     private companion object DiffCallback : DiffUtil.ItemCallback<UserItemUI>() {

@@ -32,7 +32,7 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
                 .circleCrop()
                 .into(vAvatar)
 
-            vNameUser.text = user?.userName
+            vNameUserDet.text = user?.userName
             vTagUser.text = user?.userTag ?: ""
 
             vProfession.text = user?.profession
@@ -47,7 +47,7 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
             vBirthdate.text = user?.birthdate?.let { formatter.format(it) }
 
             vPhoneBtn.setOnClickListener { onPhoneCall() }
-            vToolbar.setNavigationOnClickListener { findNavController().popBackStack() }
+            vToolbarDetail.setNavigationOnClickListener { findNavController().popBackStack() }
         }
     }
 

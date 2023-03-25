@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/vToolbar"
+        android:id="@+id/vToolbarDetail"
         android:layout_width="0dp"
         android:layout_height="44dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,12 +32,12 @@
         android:layout_marginTop="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/vToolbar"
+        app:layout_constraintTop_toTopOf="@+id/vToolbarDetail"
         tools:ignore="ContentDescription"
         tools:src="@tools:sample/avatars" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/vNameUser"
+        android:id="@+id/vNameUserDet"
         style="@style/Inter.DetailHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,10 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="@+id/vNameUser"
+        app:layout_constraintBottom_toBottomOf="@+id/vNameUserDet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/vNameUser"
-        app:layout_constraintTop_toTopOf="@+id/vNameUser"
+        app:layout_constraintStart_toEndOf="@+id/vNameUserDet"
+        app:layout_constraintTop_toTopOf="@+id/vNameUserDet"
         tools:text="@tools:sample/lorem" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -75,7 +75,7 @@
         android:paddingBottom="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vNameUser"
+        app:layout_constraintTop_toBottomOf="@id/vNameUserDet"
         tools:text="@tools:sample/lorem" />
 
     <ImageView

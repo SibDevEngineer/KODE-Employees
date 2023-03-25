@@ -10,4 +10,6 @@ sealed class UserItemUI {
     ) : UserItemUI()
 
     data class HeaderUI(val title: String) : UserItemUI()
+
+    object Skeleton : UserItemUI()
 }

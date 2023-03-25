@@ -36,8 +36,8 @@ class UsersViewModel @Inject constructor(
 
     init {
         _uiStateFlow.value = UIState.Loading
+        mockSkeletons()
         getUsers()
-
     }
 
     fun refreshUsersList() {
@@ -93,6 +93,15 @@ class UsersViewModel @Inject constructor(
                 }
             )
         }
+    }
+
+    private fun mockSkeletons() {
+        val countSkeletons = 15
+        val skeletonsList = mutableListOf<UserItemUI>()
+        for (i in 0 until countSkeletons) {
+            skeletonsList.add(UserItemUI.Skeleton)
+        }
+        _usersStateFlow.value = skeletonsList
     }
 
     private fun getUIStateEmpty(): UIState {
