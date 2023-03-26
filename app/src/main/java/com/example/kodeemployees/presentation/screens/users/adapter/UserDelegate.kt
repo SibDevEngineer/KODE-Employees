@@ -30,9 +30,9 @@ fun userItemDelegate(onUserClick: (user: User) -> Unit) =
                 vProfession.text = item.user.profession
 
                 if (item.isShowBirthdate) {
-                    vBirthDate.show()
-                    vBirthDate.text = item.birthdateUI
-                } else vBirthDate.gone()
+                    vBirthDateItem.show()
+                    vBirthDateItem.text = item.birthdateUI
+                } else vBirthDateItem.gone()
 
                 val imgUrl = item.user.avatarUrl
                 Glide.with(vAvatar)

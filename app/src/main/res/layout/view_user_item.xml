@@ -5,6 +5,7 @@
     android:id="@+id/vItemUser"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?attr/selectableItemBackground"
     android:paddingHorizontal="16dp">
 
     <ImageView
@@ -48,13 +49,13 @@
         android:lines="1"
         app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="@+id/vNameUser"
-        app:layout_constraintEnd_toStartOf="@+id/vBirthDate"
+        app:layout_constraintEnd_toStartOf="@+id/vBirthDateItem"
         app:layout_constraintStart_toEndOf="@+id/vNameUser"
         app:layout_constraintTop_toTopOf="@+id/vNameUser"
         tools:text="@tools:sample/lorem" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/vBirthDate"
+        android:id="@+id/vBirthDateItem"
         style="@style/Inter.Profession"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -75,7 +76,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/vBirthDate"
+        app:layout_constraintEnd_toStartOf="@+id/vBirthDateItem"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/vAvatar"
         app:layout_constraintTop_toBottomOf="@id/vNameUser"

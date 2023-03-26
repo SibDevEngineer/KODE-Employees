@@ -1,14 +1,16 @@
-package com.example.kodeemployees.users_screen_tests
+package com.example.kodeemployees.screens
 
 import android.view.View
 import com.example.kodeemployees.R
 import com.example.kodeemployees.presentation.screens.users.UsersFragment
 import com.kaspersky.kaspresso.screens.KScreen
+import io.github.kakaocup.kakao.common.views.KView
 import io.github.kakaocup.kakao.edit.KEditText
 import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.recycler.KRecyclerItem
 import io.github.kakaocup.kakao.recycler.KRecyclerView
 import io.github.kakaocup.kakao.swiperefresh.KSwipeRefreshLayout
+import io.github.kakaocup.kakao.tabs.KTabLayout
 import io.github.kakaocup.kakao.text.KButton
 import io.github.kakaocup.kakao.text.KTextView
 import org.hamcrest.Matcher
@@ -21,8 +23,8 @@ object UsersScreen : KScreen<UsersScreen>() {
         builder = { withId(R.id.vRecyclerUsers) },
         itemTypeBuilder = {
             itemType(::UserItem)
-            itemType(::SkeletonItem)
             itemType(::HeaderItem)
+            itemType(::SkeletonItem)
         })
 
     val swipeRefresh = KSwipeRefreshLayout { withId(R.id.vSwipeRefreshLayout) }
@@ -33,20 +35,20 @@ object UsersScreen : KScreen<UsersScreen>() {
 
     val searchEditText = KEditText { withId(R.id.vSearchEditText) }
 
-    val searchImg = KImageView { withId(R.id.vSearchImg) }
+    val searchIcon = KImageView { withId(R.id.vSearchImg) }
+
+    val tabLayout = KTabLayout{withId(R.id.vTabLayout)}
+
+    val errorLayout = KView{withId(R.id.vErrorLayout)}
+    val errorTitle = KTextView{withId(R.id.vErrorTitle)}
+    val retryBtn = KButton{withId(R.id.vRefreshTxtBtn)}
 }
 
 class UserItem(parent: Matcher<View>) : KRecyclerItem<UserItem>(parent) {
-//    val layoutClick = KView(parent) {
-//        withId(R.id.vItemUser)
-//        withMatcher(parent)
-//    }
-
-    val vNameUser = KTextView(parent) { withId(R.id.vNameUser) }
+    val nameUserItem = KTextView(parent) { withId(R.id.vNameUser) }
+    val birthdate = KTextView(parent) { withId(R.id.vBirthDateItem) }
 }
 
-class SkeletonItem(parent: Matcher<View>) : KRecyclerItem<SkeletonItem>(parent) {}
+class HeaderItem(parent: Matcher<View>) : KRecyclerItem<HeaderItem>(parent)
 
-class HeaderItem(parent: Matcher<View>) : KRecyclerItem<HeaderItem>(parent) {
-    val title = KTextView(parent) { withId(R.id.vHeaderTitle) }
-}
+class SkeletonItem(parent: Matcher<View>) : KRecyclerItem<SkeletonItem>(parent)
