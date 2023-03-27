@@ -128,17 +128,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vAppBarLayout">
 
-        <com.skydoves.androidveil.VeilRecyclerFrameView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/vRecyclerUsers"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:veilFrame_baseAlpha="0.6"
-            app:veilFrame_highlightAlpha="1.0"
-            app:veilFrame_highlightColor="@color/shimmer_highlight_0"
-            app:veilFrame_layout="@layout/view_veil_user_item"
-            app:veilFrame_radius="360dp"
-            app:veilFrame_shimmerEnable="true"
-            app:veilFrame_veiled="false" />
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/view_skeleton_user_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout

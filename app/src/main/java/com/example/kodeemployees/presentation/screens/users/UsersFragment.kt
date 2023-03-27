@@ -9,7 +9,6 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.kodeemployees.R
@@ -98,12 +97,10 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     /** Настройка адаптера RecyclerView */
     private fun setAdapter() {
         with(binding) {
-            vRecyclerUsers.setAdapter(adapter)
-            vRecyclerUsers.setLayoutManager(LinearLayoutManager(requireContext()))
+            vRecyclerUsers.adapter = adapter
 
             val space = 4.dpToPx()
-            vRecyclerUsers.getRecyclerView().addItemDecoration(UsersItemDecoration(space))
-            vRecyclerUsers.addVeiledItems(COUNT_VEIL_ITEMS) //добавление элементов скелетонов в список
+            vRecyclerUsers.addItemDecoration(UsersItemDecoration(space))
         }
     }
 
@@ -135,9 +132,6 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private fun showState(state: UIState) {
         with(binding) {
             vSwipeRefreshLayout.isRefreshing = state is UIState.Refreshing
-
-            if (state is UIState.Loading) vRecyclerUsers.veil()
-            else vRecyclerUsers.unVeil()
 
             when (state) {
                 is UIState.Error -> showStateError()
@@ -216,7 +210,6 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         private const val USER_KEY = "USER_KEY"
 
         private const val DEBOUNCE_MILLIS = 300L
-        private const val COUNT_VEIL_ITEMS = 10 //кол-во скелетонов в списке по умолчанию
 
         private val departmentsList = listOf(
             Department(0, DepartmentType.ALL),
