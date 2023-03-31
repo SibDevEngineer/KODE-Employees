@@ -3,6 +3,7 @@ package com.example.kodeemployees.presentation.screens.users
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -48,7 +49,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //создаем слушатель и подписываемся на результат из SortUsersFragment
+        // Cоздаем слушатель и подписываемся на результат из SortUsersFragment
         setFragmentResultListener(REQUEST_SORT_KEY) { _, bundle ->
             val selectedSortingType = bundle.getSerializableData<SortUsersType>(SORT_TYPE_KEY)
             selectedSortingType?.let { viewModel.changeSortingType(it) }
@@ -79,6 +80,7 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             vCancelTxtBtn.setOnClickListener {
                 vSearchEditText.text?.clear()
                 vSearchEditText.clearFocus()
+                hideKeyboard()
             }
 
             vSearchEditText.textChangesWithDebounce(DEBOUNCE_MILLIS)
@@ -187,6 +189,11 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
                 .load(R.drawable.img_search_empty)
                 .into(vErrorImg)
         }
+    }
+
+    fun hideKeyboard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.hideSoftInputFromWindow(binding.vSearchEditText.windowToken, 0)
     }
 
     /** Обработка нажатия на пользователя в списке */
