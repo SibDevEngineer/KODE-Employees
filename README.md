@@ -22,6 +22,13 @@
 - Сортировка сотрудников по алфавиту или дате рождения.
 - Переход в профиль и просмотр детальной информации о сотруднике.
 
+<p align="center">
+<img src="/preview/demo/filter_users.gif" width="270"/>
+<img src="/preview/demo/search_users.gif" width="270"/>
+<img src="/preview/demo/sort_users.gif" width="270"/>
+<img src="/preview/demo/user_profile.gif" width="270"/>
+</p>
+
 ## UI States
 
 <p align="center">
