@@ -2,42 +2,35 @@ package com.example.kodeemployees.data.repository
 
 import com.example.kodeemployees.data.api.KodeApi
 import com.example.kodeemployees.data.dto.toUser
+import com.example.kodeemployees.data.local_storage.LocalStorage
 import com.example.kodeemployees.data.models.DataSourceType
 import com.example.kodeemployees.data.models.RequestParams
-import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.domain.MainRepository
-import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MainRepositoryImpl @Inject constructor(private val kodeApi: KodeApi) : MainRepository {
-    private var cachedUsersList = listOf<User>()
+class MainRepositoryImpl @Inject constructor(
+    private val kodeApi: KodeApi,
+    private val localStorage: LocalStorage,
+    private val dispatcherIO: CoroutineDispatcher
+) : MainRepository {
 
     private suspend fun getMockUsers(): List<User> {
-        cachedUsersList = kodeApi.getMockUsers().usersList.map { it.toUser() }
-        return cachedUsersList
+        return withContext(dispatcherIO) {
+            val usersList = kodeApi.getMockUsers().usersList.map { it.toUser() }
+            localStorage.saveUsers(usersList)
+            return@withContext usersList
+        }
     }
 
-    override suspend fun getUsers(requestParams: RequestParams): List<User> {
-        val usersList = if (requestParams.sourceType == DataSourceType.SERVER) getMockUsers()
-        else cachedUsersList.toList()
+    private fun getCachedUsers() = localStorage.getCachedUsers()
 
-        return usersList
-            .filter {
-                it.userName?.contains(requestParams.searchText, true) == true
-                        || it.userTag?.contains(requestParams.searchText, true) == true
-                        || it.phone?.contains(requestParams.searchText) == true
-            }
-            .filter {
-                if (requestParams.department == DepartmentType.ALL) true
-                else it.department == requestParams.department.name.lowercase()
-            }
-            .let { list ->
-                when (requestParams.sortedBy) {
-                    SortUsersType.ALPHABET -> list.sortedBy { it.userName }
-                    SortUsersType.BIRTHDATE -> list.sortedBy { it.nextBirthdate }
-                }
-            }
+    override suspend fun getUsers(requestParams: RequestParams): List<User> {
+
+        return if (requestParams.sourceType == DataSourceType.SERVER) getMockUsers()
+        else getCachedUsers()
     }
 }
 

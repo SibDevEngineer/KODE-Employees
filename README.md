@@ -37,3 +37,9 @@
 <img src="/preview/screenshots/state_error.png" width="270"/>
 <img src="/preview/screenshots/state_user_not_found.png" width="270"/>
 </p>
+
+## Architecture
+
+<p align="center">
+<img src="/preview/app_architecture.png"/>
+</p>

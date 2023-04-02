@@ -5,6 +5,8 @@ import com.example.kodeemployees.data.api.HeaderInterceptor
 import com.example.kodeemployees.data.api.KodeApi
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,5 +58,8 @@ class ApiModule {
     fun provideKodeApi(retrofit: Retrofit): KodeApi =
         retrofit.create(KodeApi::class.java)
 
+    @Provides
+    @Singleton
+    fun provideDispatcherIo(): CoroutineDispatcher = Dispatchers.IO
 }
 

@@ -7,23 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.kodeemployees.data.models.DataSourceType
 import com.example.kodeemployees.data.models.RequestParams
 import com.example.kodeemployees.data.models.SortUsersType
-import com.example.kodeemployees.domain.MainRepository
+import com.example.kodeemployees.domain.UsersUseCase
 import com.example.kodeemployees.presentation.UIState
 import com.example.kodeemployees.presentation.models.DepartmentType
 import com.example.kodeemployees.presentation.models.User
 import com.example.kodeemployees.presentation.screens.users.adapter.UserItemUI
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
 class UsersViewModel @Inject constructor(
-    private val mainRepository: MainRepository
+    private val usersUseCase: UsersUseCase
 ) : ViewModel() {
 
     private val _usersStateFlow = MutableStateFlow<List<UserItemUI>>(emptyList())
@@ -77,15 +75,11 @@ class UsersViewModel @Inject constructor(
     fun getCurrentSortType(): SortUsersType = requestParams.sortedBy
 
     private fun getUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            kotlin.runCatching { mainRepository.getUsers(requestParams) }.fold(
+        viewModelScope.launch {
+            kotlin.runCatching { usersUseCase.getUsers(requestParams) }.fold(
                 onSuccess = { usersList ->
-                    withContext(Dispatchers.Main) {
-                        _uiStateFlow.value =
-                            if (usersList.isEmpty()) getUIStateEmpty() else UIState.Default
-
-                        _usersStateFlow.value = mapToUsersUi(usersList)
-                    }
+                    _uiStateFlow.value = if (usersList.isEmpty()) getUIStateEmpty() else UIState.Default
+                    _usersStateFlow.value = mapToUsersUi(usersList)
                 },
                 onFailure = {
                     _uiStateFlow.value = UIState.Error(it.message)
@@ -95,6 +89,7 @@ class UsersViewModel @Inject constructor(
         }
     }
 
+    /** Добавление скелетонов в момент загрузки данных */
     private fun mockSkeletons() {
         val countSkeletons = 15
         val skeletonsList = mutableListOf<UserItemUI>()
