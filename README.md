@@ -23,19 +23,19 @@
 - Переход в профиль и просмотр детальной информации о сотруднике.
 
 <p align="center">
-<img src="/preview/demo/filter_users.gif" width="270"/>
-<img src="/preview/demo/search_users.gif" width="270"/>
-<img src="/preview/demo/sort_users.gif" width="270"/>
-<img src="/preview/demo/user_profile.gif" width="270"/>
+<img src="/preview/demo/filter_users.gif" width="200"/>
+<img src="/preview/demo/search_users.gif" width="200"/>
+<img src="/preview/demo/sort_users.gif" width="200"/>
+<img src="/preview/demo/user_profile.gif" width="200"/>
 </p>
 
 ## UI States
 
 <p align="center">
-<img src="/preview/screenshots/state_loading.png" width="270"/>
-<img src="/preview/screenshots/state_empty_list.png" width="270"/>
-<img src="/preview/screenshots/state_error.png" width="270"/>
-<img src="/preview/screenshots/state_user_not_found.png" width="270"/>
+<img src="/preview/screenshots/state_loading.png" width="200"/>
+<img src="/preview/screenshots/state_empty_list.png" width="200"/>
+<img src="/preview/screenshots/state_error.png" width="200"/>
+<img src="/preview/screenshots/state_user_not_found.png" width="200"/>
 </p>
 
 ## Architecture
