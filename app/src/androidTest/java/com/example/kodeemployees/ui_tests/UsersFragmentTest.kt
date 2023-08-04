@@ -2,7 +2,7 @@ package com.example.kodeemployees.ui_tests
 
 import androidx.test.ext.junit.rules.activityScenarioRule
 import com.example.kodeemployees.R
-import com.example.kodeemployees.presentation.MainActivity
+import com.example.kodeemployees.presentation.main.MainActivity
 import com.example.kodeemployees.screens.*
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
 import io.github.kakaocup.kakao.common.utilities.getResourceString
