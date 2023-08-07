@@ -30,6 +30,7 @@
 
     <string name="user_detail_screen_empty_phone">Нет номера телефона</string>
     <string name="user_detail_screen_empty_profession">Нет данных о профессии</string>
+    <string name="user_detail_screen_empty_name">Нет данных об имени пользователя</string>
 
     <string name="test_users_fragment_title_user_not_found">Search empty user</string>
     <string name="test_users_fragment_header_title_next_year">2024</string>

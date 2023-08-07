@@ -6,7 +6,7 @@
     android:layout_marginHorizontal="8dp"
     android:background="@drawable/bg_bottom_sheet_fragment"
     android:orientation="vertical"
-    tools:context=".presentation.screens.users.sort_users.SortUsersFragment">
+    tools:context=".presentation.screens.sort_users.SortUsersFragment">
 
     <View
         android:id="@+id/vView"

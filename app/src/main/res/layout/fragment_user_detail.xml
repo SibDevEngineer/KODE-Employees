@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.detail.UserDetailFragment">
+    tools:context=".presentation.screens.user_detail.UserDetailFragment">
 
     <View
         android:id="@+id/vBackgroundView"

@@ -1,7 +1,7 @@
 package com.example.kodeemployees.di
 
-import com.example.kodeemployees.data.repository.MainRepositoryImpl
-import com.example.kodeemployees.domain.MainRepository
+import com.example.kodeemployees.data.repository.UsersRepositoryImpl
+import com.example.kodeemployees.domain.repository.UsersRepository
 import dagger.Binds
 import dagger.Module
 
@@ -9,5 +9,9 @@ import dagger.Module
 interface DomainModule {
 
     @Binds
-    fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
+    fun bindUsersRepositoryImpl_to_UsersRepository(
+        usersRepositoryImpl: UsersRepositoryImpl
+    ): UsersRepository
+
+
 }

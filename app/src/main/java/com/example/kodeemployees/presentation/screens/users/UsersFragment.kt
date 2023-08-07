@@ -10,19 +10,24 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.kodeemployees.R
 import com.example.kodeemployees.app.appComponent
+import com.example.kodeemployees.core.extensions.dpToPx
+import com.example.kodeemployees.core.extensions.getSerializableData
+import com.example.kodeemployees.core.extensions.gone
+import com.example.kodeemployees.core.extensions.setTint
+import com.example.kodeemployees.core.extensions.show
+import com.example.kodeemployees.core.extensions.showIf
+import com.example.kodeemployees.core.extensions.textChangesWithDebounce
 import com.example.kodeemployees.data.models.SortUsersType
 import com.example.kodeemployees.databinding.FragmentUsersBinding
-import com.example.kodeemployees.presentation.UIState
-import com.example.kodeemployees.presentation.extensions.*
-import com.example.kodeemployees.presentation.models.Department
-import com.example.kodeemployees.presentation.models.DepartmentType
-import com.example.kodeemployees.presentation.models.User
+import com.example.kodeemployees.domain.models.Department
 import com.example.kodeemployees.presentation.screens.users.adapter.UsersAdapter
 import com.example.kodeemployees.presentation.screens.users.adapter.UsersItemDecoration
+import com.example.kodeemployees.presentation.screens.users.models.UserItemUi
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.coroutines.flow.launchIn
@@ -54,29 +59,35 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
             val selectedSortingType = bundle.getSerializableData<SortUsersType>(SORT_TYPE_KEY)
             selectedSortingType?.let { viewModel.changeSortingType(it) }
         }
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            initDepartmentsTabs()
             setAdapter()
-            initTabsListener()
 
-            viewModel.usersStateFlow.onEach {
-                adapter.items = it
+            viewModel.departmentsStateFlow.onEach {
+                initDepartmentsTabs(it)
+                initTabsListener(it)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-            viewModel.uiStateFlow.onEach {
-                showState(it)
+            viewModel.screenStateFlow.onEach { state ->
+                showState(state)
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-            vSwipeRefreshLayout.setOnRefreshListener { viewModel.refreshUsersList() }
+            vSwipeRefreshLayout.setOnRefreshListener {
+                viewModel.refreshUsersList()
+            }
 
-            vSortUsersBtn.setOnClickListener { onSortUsersBtnClick() }
-            vRefreshTxtBtn.setOnClickListener { viewModel.refreshUsersList() }
-            vClearTxtBtn.setOnClickListener { vSearchEditText.text?.clear() }
+            vSortUsersBtn.setOnClickListener {
+                onSortUsersBtnClick()
+            }
+            vRefreshTxtBtn.setOnClickListener {
+                viewModel.refreshUsersList()
+            }
+            vClearTxtBtn.setOnClickListener {
+                vSearchEditText.text?.clear()
+            }
             vCancelTxtBtn.setOnClickListener {
                 vSearchEditText.text?.clear()
                 vSearchEditText.clearFocus()
@@ -100,29 +111,30 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     private fun setAdapter() {
         with(binding) {
             vRecyclerUsers.adapter = adapter
+            adapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.ALLOW
 
             val space = 4.dpToPx()
             vRecyclerUsers.addItemDecoration(UsersItemDecoration(space))
         }
     }
 
-    private fun initDepartmentsTabs() {
+    private fun initDepartmentsTabs(departmentsList: List<Department>) {
         with(binding) {
             departmentsList.forEach { department ->
                 vTabLayout.addTab(
                     vTabLayout.newTab().setText(
-                        resources.getString(department.departmentType.title)
+                        resources.getString(department.title)
                     )
                 )
             }
         }
     }
 
-    private fun initTabsListener() {
+    private fun initTabsListener(departmentsList: List<Department>) {
         binding.vTabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val department = departmentsList[tab?.position!!]
-                viewModel.onDepartmentSelected(department.departmentType)
+                viewModel.onDepartmentSelected(department)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -131,74 +143,42 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
     }
 
     /** Функция визуализации изменения состояний */
-    private fun showState(state: UIState) {
+    private fun showState(state: ScreenState<List<UserItemUi>>) {
         with(binding) {
-            vSwipeRefreshLayout.isRefreshing = state is UIState.Refreshing
+            vSwipeRefreshLayout.isRefreshing = false
 
             when (state) {
-                is UIState.Error -> showStateError()
-                is UIState.EmptyList -> showStateEmptyList()
-                is UIState.UserNotFound -> showStateUserNotFound()
-                else -> {
+                is ScreenState.Data -> {
+                    adapter.items = state.data
                     vErrorLayout.gone()
                     vRecyclerUsers.show()
+                }
+
+                else -> {
+                    vErrorLayout.show()
+                    vRecyclerUsers.gone()
+
+                    vErrorImg.show()
+                    Glide.with(vErrorImg)
+                        .load(R.drawable.img_state_error)
+                        .into(vErrorImg)
+
+                    vErrorTitle.text = getString(R.string.users_screen_state_error_title)
+                    vErrorMsg.text = getString(R.string.users_screen_state_error_msg)
+                    vRefreshTxtBtn.show()
                 }
             }
         }
     }
 
-    private fun showStateError() {
-        with(binding) {
-            vErrorLayout.show()
-            vRecyclerUsers.gone()
-
-            vErrorImg.show()
-            Glide.with(vErrorImg)
-                .load(R.drawable.img_state_error)
-                .into(vErrorImg)
-
-            vErrorTitle.text = getString(R.string.users_screen_state_error_title)
-            vErrorMsg.text = getString(R.string.users_screen_state_error_msg)
-            vRefreshTxtBtn.show()
-        }
-    }
-
-    private fun showStateEmptyList() {
-        with(binding) {
-            vErrorLayout.show()
-            vRecyclerUsers.gone()
-            vErrorImg.gone()
-            vRefreshTxtBtn.gone()
-
-            vErrorTitle.text = getString(R.string.users_screen_state_empty_list_title)
-            vErrorMsg.text = getString(R.string.users_screen_state_empty_list_msg)
-        }
-    }
-
-    private fun showStateUserNotFound() {
-        with(binding) {
-            vErrorLayout.show()
-            vRecyclerUsers.gone()
-            vErrorImg.show()
-            vRefreshTxtBtn.gone()
-
-            vErrorTitle.text = getString(R.string.users_screen_state_user_not_found_title)
-            vErrorMsg.text = getString(R.string.users_screen_state_user_not_found_msg)
-
-            Glide.with(vErrorImg)
-                .load(R.drawable.img_search_empty)
-                .into(vErrorImg)
-        }
-    }
-
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         imm?.hideSoftInputFromWindow(binding.vSearchEditText.windowToken, 0)
     }
 
     /** Обработка нажатия на пользователя в списке */
-    private fun onUserClick(user: User) {
-        val bundle = bundleOf(USER_KEY to user)
+    private fun onUserClick(userId: String) {
+        val bundle = bundleOf(USER_ID_KEY to userId)
         findNavController().navigate(R.id.action_usersFragment_to_userDetailFragment, bundle)
     }
 
@@ -214,24 +194,8 @@ class UsersFragment : Fragment(R.layout.fragment_users) {
         private const val REQUEST_SORT_KEY = "REQUEST_SORT_KEY"
         private const val SORT_TYPE_KEY = "SORT_TYPE_KEY"
         private const val CURRENT_SORT_TYPE_KEY = "CURRENT_SORT_TYPE_KEY"
-        private const val USER_KEY = "USER_KEY"
+        private const val USER_ID_KEY = "USER_KEY"
 
         private const val DEBOUNCE_MILLIS = 300L
-
-        private val departmentsList = listOf(
-            Department(0, DepartmentType.ALL),
-            Department(1, DepartmentType.ANDROID),
-            Department(2, DepartmentType.IOS),
-            Department(3, DepartmentType.DESIGN),
-            Department(4, DepartmentType.MANAGEMENT),
-            Department(5, DepartmentType.QA),
-            Department(6, DepartmentType.BACK_OFFICE),
-            Department(7, DepartmentType.FRONTEND),
-            Department(8, DepartmentType.HR),
-            Department(9, DepartmentType.PR),
-            Department(10, DepartmentType.BACKEND),
-            Department(11, DepartmentType.SUPPORT),
-            Department(12, DepartmentType.ANALYTICS)
-        )
     }
 }

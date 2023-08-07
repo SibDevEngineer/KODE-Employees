@@ -12,6 +12,7 @@
 - Moshi
 - Coroutines
 - Adapter Delegates
+- ViewBinding Delegate
 - Dagger
 - Unit и UI тесты
 

@@ -1,7 +1,7 @@
 package com.example.kodeemployees.screens
 
 import com.example.kodeemployees.R
-import com.example.kodeemployees.presentation.screens.users.sort_users.SortUsersFragment
+import com.example.kodeemployees.presentation.screens.sort_users.SortUsersFragment
 import com.kaspersky.kaspresso.screens.KScreen
 import io.github.kakaocup.kakao.text.KButton
 

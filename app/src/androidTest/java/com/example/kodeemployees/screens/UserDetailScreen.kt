@@ -1,7 +1,7 @@
 package com.example.kodeemployees.screens
 
 import com.example.kodeemployees.R
-import com.example.kodeemployees.presentation.screens.detail.UserDetailFragment
+import com.example.kodeemployees.presentation.screens.user_detail.UserDetailFragment
 import com.kaspersky.kaspresso.screens.KScreen
 import io.github.kakaocup.kakao.image.KImageView
 import io.github.kakaocup.kakao.text.KTextView
